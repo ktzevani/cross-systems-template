@@ -22,6 +22,20 @@
       }
     },
     {
+      "name": "windows-msvc-msbuild",
+      "displayName": "Windows MSVC + MSBuild + Conan",
+      "generator": "Visual Studio 17 2022",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "binaryDir": "${sourceDir}/out/build/windows-msvc-msbuild",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release;RelWithDebInfo;MinSizeRel",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-msbuild/build/generators/conan_toolchain.cmake"
+      }
+    },
+    {
       "name": "linux-gcc-ninja-debug",
       "displayName": "Linux GCC + Ninja + Conan Debug",
       "generator": "Ninja",
@@ -52,6 +66,26 @@
       "configurePreset": "windows-msvc-ninja-release"
     },
     {
+      "name": "windows-msvc-msbuild-debug",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "Debug"
+    },
+    {
+      "name": "windows-msvc-msbuild-release",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "Release"
+    },
+    {
+      "name": "windows-msvc-msbuild-relwithdebinfo",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "windows-msvc-msbuild-minsizerel",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "MinSizeRel"
+    },
+    {
       "name": "linux-gcc-ninja-debug",
       "configurePreset": "linux-gcc-ninja-debug"
     },
@@ -71,6 +105,38 @@
     {
       "name": "windows-msvc-ninja-release",
       "configurePreset": "windows-msvc-ninja-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-debug",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-release",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-relwithdebinfo",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "RelWithDebInfo",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-minsizerel",
+      "configurePreset": "windows-msvc-msbuild",
+      "configuration": "MinSizeRel",
       "output": {
         "outputOnFailure": true
       }

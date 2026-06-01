@@ -158,7 +158,6 @@ tsan.log*
 !.vscode/extensions.json
 !.vscode/launch.json
 !.vscode/tasks.json
-!.vscode/startup-windows.ps1
 
 .idea/
 *.swp

@@ -27,7 +27,7 @@
           "-ExecutionPolicy",
           "Bypass",
           "-File",
-          "${workspaceFolder}\\.vscode\\startup-windows.ps1"
+          "${workspaceFolder}\\scripts\\startup-windows.ps1"
         ],
         "options": {
           "cwd": "${workspaceFolder}"
@@ -93,6 +93,37 @@
         "clear": true
       },
       "problemMatcher": []
+    },
+    {
+      "label": "05. Conan: Install windows-msvc-msbuild all configs",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "Skipping Windows MSBuild Conan install on this platform."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": [],
+      "windows": {
+        "type": "process",
+        "command": "powershell.exe",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "${workspaceFolder}\\scripts\\install-conan-windows-msvc-msbuild.ps1"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        }
+      }
     },
     {
       "label": "11 Debug: Prepare linux-gcc-ninja-debug",

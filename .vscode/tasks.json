@@ -93,6 +93,82 @@
         "clear": true
       },
       "problemMatcher": []
+    },
+    {
+      "label": "11 Debug: Prepare linux-gcc-ninja-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "01 Conan: Install linux-gcc-ninja-debug",
+        "11.1 CMake: Configure linux-gcc-ninja-debug",
+        "11.2 CMake: Build linux-gcc-ninja-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "11.1 CMake: Configure linux-gcc-ninja-debug",
+      "type": "shell",
+      "command": "cmake --preset linux-gcc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "11.2 CMake: Build linux-gcc-ninja-debug",
+      "type": "shell",
+      "command": "cmake --build --preset linux-gcc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "12 Debug: Prepare windows-msvc-ninja-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "03. Conan: Install windows-msvc-ninja-debug",
+        "12.1 CMake: Configure windows-msvc-ninja-debug",
+        "12.2 CMake: Build windows-msvc-ninja-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "12.1 CMake: Configure windows-msvc-ninja-debug",
+      "type": "shell",
+      "command": "cmake --preset windows-msvc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "12.2 CMake: Build windows-msvc-ninja-debug",
+      "type": "shell",
+      "command": "cmake --build --preset windows-msvc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
     }
   ]
 }

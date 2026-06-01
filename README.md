@@ -7,6 +7,7 @@
 ![Conan](https://img.shields.io/badge/Conan-2.x-6699CB)
 ![Ninja](https://img.shields.io/badge/Ninja-build-222222)
 ![MSBuild](https://img.shields.io/badge/MSBuild-Visual%20Studio-5C2D91?logo=visualstudio)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 This repository is a template for developing cross-platform systems software on
 Windows and Linux with a shared CMake and Conan foundation.
@@ -386,3 +387,7 @@ source.
 profile configuration disables root user-preset generation so CMake sees the
 project-owned preset names instead of duplicate generated names such as
 `conan-debug` or `conan-release`.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

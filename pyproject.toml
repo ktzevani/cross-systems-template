@@ -3,6 +3,7 @@ name = "cross-systems-template"
 version = "0.1.0"
 description = "Systems reference project (C++/CUDA/C) with Conan/CMake build tooling and Python support"
 authors = [{ name = "Kostas Tzevanidis" }]
+license = "MIT"
 requires-python = ">=3.13.7"
 
 # Python runtime / production dependencies.

@@ -4,6 +4,7 @@ This repository is named `cross-systems-template`. It is a cross-platform
 systems project template for Windows and Linux. It currently supports CMake,
 Conan 2, Ninja, Visual Studio/MSBuild, VS Code debugging, and a CUDA-capable
 Linux dev container. The root README is the canonical public documentation.
+The project is licensed under the MIT License.
 
 Current profile/preset lanes:
 

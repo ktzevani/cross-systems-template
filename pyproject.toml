@@ -1,0 +1,41 @@
+[project]
+name = "systems-ref-project"
+version = "0.1.0"
+description = "Systems reference project (C++/CUDA/C) with Conan/CMake build tooling and Python support"
+authors = [{ name = "Kostas Tzevanidis" }]
+requires-python = ">=3.13.7"
+
+# Python runtime / production dependencies.
+dependencies = []
+
+# Install extras for the Python-facing project.
+[project.optional-dependencies]
+dev = []
+
+# Internal environments: build system, local tooling, CI helper deps.
+# These are NOT included in built metadata.
+[dependency-groups]
+build = [
+  "conan>=2.29.0",
+]
+
+python-dev = [
+  "pytest>=9.0.3",
+  "ruff>=0.15.15",
+  "mypy>=2.1.0",
+]
+
+# Just for convenience
+dev = [
+  { include-group = "build" },
+  { include-group = "python-dev" },
+]
+
+# Uncomment to add Python package support
+# [build-system]
+# requires = ["hatchling"]
+# build-backend = "hatchling.build"
+
+# Remove if current project needs to be installed in venv
+[tool.uv]
+package = false

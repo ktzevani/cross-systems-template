@@ -1,0 +1,42 @@
+{
+    "name": "Systems (C++/CUDA/C/Python) Dev Container",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "dev",
+    "workspaceFolder": "/opt/project",
+    "runServices": [
+        "dev"
+    ],
+    "mounts": [
+        "source=vscode-cli-data,target=/root/.vscode-cli,type=volume"
+    ],
+    "shutdownAction": "none",
+    "postCreateCommand": "curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && tar -xf vscode_cli.tar.gz && mv code /usr/local/bin/code-tunnel && rm vscode_cli.tar.gz",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.analysis.autoImportCompletions": true,
+                "python.analysis.typeCheckingMode": "basic",
+                "python.testing.pytestEnabled": true,
+                "terminal.integrated.env.windows": {
+                    "UV_PROJECT_ENVIRONMENT": ".venv/win64"
+                }
+            },
+            "extensions": [
+                "bierner.markdown-mermaid",
+                "charliermarsh.ruff",
+                "ms-python.debugpy",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "ms-vscode.cmake-tools",
+                "njpwerner.autodocstring",
+                "openai.chatgpt",
+                "tamasfe.even-better-toml",
+                "twxs.cmake"
+            ]
+        }
+    },
+    "remoteUser": "root"
+}

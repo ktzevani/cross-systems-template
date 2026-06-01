@@ -1,0 +1,40 @@
+name: systems-ref-project
+
+services:
+  dev:
+    build:
+      context: image/
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: 3.13.12
+      tags:
+        - systems-ref-image:latest
+        - systems-ref-image:${APP_VERSION:-v1.1}
+    image: systems-ref-image:latest
+    container_name: dev
+    security_opt:
+      - "seccomp=unconfined"
+    cap_add:
+      - SYS_ADMIN
+      - SYS_PTRACE
+    restart: unless-stopped
+    entrypoint: ["/usr/local/bin/docker-entrypoint.sh"]
+    command:
+      [
+        "sh",
+        "-lc",
+        'uv run --active tests/check_pycuda.py && tail -f /dev/null',
+      ]
+    working_dir: /opt/project
+    volumes:
+      - .:/opt/project
+    ports:
+      - "9080:9080"
+      - "9001:9001"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu, compute, graphics, utility, video]

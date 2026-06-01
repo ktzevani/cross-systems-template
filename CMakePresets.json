@@ -1,0 +1,93 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "windows-msvc-ninja-debug",
+      "displayName": "Windows MSVC + Ninja + Conan Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/windows-msvc-ninja-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-ninja-debug/build/Debug/generators/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "windows-msvc-ninja-release",
+      "displayName": "Windows MSVC + Ninja + Conan Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/windows-msvc-ninja-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-ninja-release/build/Release/generators/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-debug",
+      "displayName": "Linux GCC + Ninja + Conan Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/linux-gcc-ninja-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/linux-gcc-ninja-debug/build/Debug/generators/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-release",
+      "displayName": "Linux GCC + Ninja + Conan Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/linux-gcc-ninja-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/linux-gcc-ninja-release/build/Release/generators/conan_toolchain.cmake"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-msvc-ninja-debug",
+      "configurePreset": "windows-msvc-ninja-debug"
+    },
+    {
+      "name": "windows-msvc-ninja-release",
+      "configurePreset": "windows-msvc-ninja-release"
+    },
+    {
+      "name": "linux-gcc-ninja-debug",
+      "configurePreset": "linux-gcc-ninja-debug"
+    },
+    {
+      "name": "linux-gcc-ninja-release",
+      "configurePreset": "linux-gcc-ninja-release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "windows-msvc-ninja-debug",
+      "configurePreset": "windows-msvc-ninja-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-ninja-release",
+      "configurePreset": "windows-msvc-ninja-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-debug",
+      "configurePreset": "linux-gcc-ninja-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-release",
+      "configurePreset": "linux-gcc-ninja-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

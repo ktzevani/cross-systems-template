@@ -1,0 +1,15 @@
+[settings]
+os=Linux
+arch=x86_64
+compiler=gcc
+compiler.version=13.3
+compiler.cppstd=20
+compiler.libcxx=libstdc++11
+build_type=Debug
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja
+
+[buildenv]
+CC=/usr/bin/gcc
+CXX=/usr/bin/g++

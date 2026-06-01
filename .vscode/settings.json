@@ -1,0 +1,29 @@
+{
+  "cmake.configureOnOpen": false,
+  "cmake.configureOnEdit": false,
+  "cmake.useCMakePresets": "always",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.env.windows": {
+    "UV_PROJECT_ENVIRONMENT": ".venv\\win64"
+  },
+  "files.associations": {
+    "**/profiles/*": "plaintext"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  }
+}

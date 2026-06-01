@@ -1,0 +1,98 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "00. Startup: Windows native setup check",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "Skipping Windows native setup check on this platform."
+      ],
+      "presentation": {
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "clear": true,
+        "showReuseMessage": false
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": [],
+      "windows": {
+        "type": "process",
+        "command": "powershell.exe",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "${workspaceFolder}\\.vscode\\startup-windows.ps1"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        }
+      }
+    },
+    {
+      "label": "01 Conan: Install linux-gcc-ninja-debug",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/linux-gcc-ninja-debug --profile:build=profiles/linux-gcc-ninja-debug --build=missing -of out/conan/linux-gcc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "02 Conan: Install linux-gcc-ninja-release",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/linux-gcc-ninja-release --profile:build=profiles/linux-gcc-ninja-release --build=missing -of out/conan/linux-gcc-ninja-release",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "03. Conan: Install windows-msvc-ninja-debug",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/windows-msvc-ninja-debug --profile:build=profiles/windows-msvc-ninja-debug --build=missing -of out/conan/windows-msvc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "04. Conan: Install windows-msvc-ninja-release",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/windows-msvc-ninja-release --profile:build=profiles/windows-msvc-ninja-release --build=missing -of out/conan/windows-msvc-ninja-release",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

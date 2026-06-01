@@ -1,0 +1,174 @@
+# ----------------------------
+# Python / uv
+# ----------------------------
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+
+# ----------------------------
+# CMake build directories
+# ----------------------------
+build/
+build-*/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+
+# CMake user/package files
+CMakeUserPresets.json
+CMakePackageConfigHelpers.cmake
+
+
+# ----------------------------
+# Conan 2 generated files
+# ----------------------------
+# If you generate Conan files into build folders, build/ already covers them.
+# These are here in case Conan generators are accidentally emitted in-tree.
+conanbuild/
+conanrun/
+generators/
+CMakePresets.json.user
+conan_toolchain.cmake
+conanbuildinfo.*
+conaninfo.txt
+graph_info.json
+conan.lock
+
+# Usually commit conanfile.py / conanfile.txt.
+# Usually do NOT commit generated conan.lock unless you intentionally use it
+# as a dependency lockfile. For applications, committing it can be valid.
+
+
+# ----------------------------
+# Ninja
+# ----------------------------
+.ninja_deps
+.ninja_log
+*.ninja
+
+
+# ----------------------------
+# MSBuild / Visual Studio
+# ----------------------------
+.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.VC.opendb
+*.opensdf
+*.sdf
+*.ipch
+*.aps
+*.ncb
+*.opendb
+*.tlog
+*.lastbuildstate
+*.recipe
+*.log
+*.ilk
+*.pdb
+*.idb
+*.obj
+*.pch
+*.res
+*.rsp
+
+# Visual Studio build outputs
+Debug/
+Release/
+RelWithDebInfo/
+MinSizeRel/
+x64/
+x86/
+ARM/
+ARM64/
+
+
+# ----------------------------
+# C / C++ build artifacts
+# ----------------------------
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.i
+*.ii
+*.s
+*.d
+
+# Static analysis / compilation databases
+.cache/
+.cache/clangd/
+.clangd-index/
+
+
+# ----------------------------
+# Coverage / profiling / sanitizers
+# ----------------------------
+*.gcda
+*.gcno
+*.gcov
+lcov.info
+*.profraw
+*.profdata
+perf.data
+perf.data.old
+callgrind.out.*
+massif.out.*
+vgcore.*
+asan.log*
+ubsan.log*
+tsan.log*
+
+
+# ----------------------------
+# ccache / sccache
+# ----------------------------
+.ccache/
+.sccache/
+
+
+# ----------------------------
+# IDEs / editors
+# ----------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/startup-windows.ps1
+
+.idea/
+*.swp
+*.swo
+*~
+
+
+# ----------------------------
+# OS junk
+# ----------------------------
+.DS_Store
+Thumbs.db
+desktop.ini

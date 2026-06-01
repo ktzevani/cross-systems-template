@@ -1,4 +1,4 @@
-# systems-ref-project
+# cross-systems-template
 
 ![C++](https://img.shields.io/badge/C%2B%2B-20-00599C?logo=cplusplus)
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
@@ -290,7 +290,7 @@ cmake --preset windows-msvc-msbuild
 Open the generated solution:
 
 ```text
-out\build\windows-msvc-msbuild\systems-ref-project.sln
+out\build\windows-msvc-msbuild\cross-systems-template.sln
 ```
 
 Visual Studio can then build any supported configuration:

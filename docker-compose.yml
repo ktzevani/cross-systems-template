@@ -1,4 +1,4 @@
-name: systems-ref-project
+name: cross-systems-template
 
 services:
   dev:
@@ -8,9 +8,9 @@ services:
       args:
         PYTHON_VERSION: 3.13.12
       tags:
-        - systems-ref-image:latest
-        - systems-ref-image:${APP_VERSION:-v1.1}
-    image: systems-ref-image:latest
+        - cross-systems-template-image:latest
+        - cross-systems-template-image:${APP_VERSION:-v1.1}
+    image: cross-systems-template-image:latest
     container_name: dev
     security_opt:
       - "seccomp=unconfined"

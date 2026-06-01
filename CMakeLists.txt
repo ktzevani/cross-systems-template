@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 
-project(systems-ref-project LANGUAGES CXX)
+project(cross-systems-template LANGUAGES CXX)
 
 add_executable(app
     src/cpp/main.cpp

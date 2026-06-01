@@ -493,7 +493,7 @@ wheels = [
 ]
 
 [[package]]
-name = "systems-ref-project"
+name = "cross-systems-template"
 version = "0.1.0"
 source = { virtual = "." }
 

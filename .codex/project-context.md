@@ -1,9 +1,9 @@
 # Project Context For Future Work
 
-This repository is a cross-platform systems project template for Windows and
-Linux. It currently supports CMake, Conan 2, Ninja, Visual Studio/MSBuild, VS
-Code debugging, and a CUDA-capable Linux dev container. The root README is the
-canonical public documentation.
+This repository is named `cross-systems-template`. It is a cross-platform
+systems project template for Windows and Linux. It currently supports CMake,
+Conan 2, Ninja, Visual Studio/MSBuild, VS Code debugging, and a CUDA-capable
+Linux dev container. The root README is the canonical public documentation.
 
 Current profile/preset lanes:
 

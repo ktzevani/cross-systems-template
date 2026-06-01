@@ -3,7 +3,7 @@ from conan.tools.cmake import cmake_layout
 
 
 class MyProjectConan(ConanFile):
-    name = "systems-ref-project"
+    name = "cross-systems-template"
     version = "0.1.0"
 
     settings = "os", "arch", "compiler", "build_type"

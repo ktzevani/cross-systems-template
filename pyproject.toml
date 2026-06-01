@@ -1,5 +1,5 @@
 [project]
-name = "systems-ref-project"
+name = "cross-systems-template"
 version = "0.1.0"
 description = "Systems reference project (C++/CUDA/C) with Conan/CMake build tooling and Python support"
 authors = [{ name = "Kostas Tzevanidis" }]

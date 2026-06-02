@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$VenvRel = ".venv/win64"
+$VenvRel = ".venv"
 $VenvPath = Join-Path $PWD $VenvRel
 
 function Test-VSDeveloperSandbox {

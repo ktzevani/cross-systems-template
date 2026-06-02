@@ -170,7 +170,7 @@ Current tasks:
 
 | Task | Purpose |
 |---|---|
-| `00. Startup: Windows native setup check` | On Windows folder open, checks for a Visual Studio Developer environment and creates `.venv/win64` with uv if needed. |
+| `00. Startup: Windows native setup check` | On Windows folder open, checks for a Visual Studio Developer environment and creates `.venv` with uv if needed. |
 | `01 Conan: Install linux-gcc-ninja-debug` | Generates Conan dependency/toolchain files for Linux GCC Debug. |
 | `02 Conan: Install linux-gcc-ninja-release` | Generates Conan dependency/toolchain files for Linux GCC Release. |
 | `03. Conan: Install windows-msvc-ninja-debug` | Generates Conan dependency/toolchain files for Windows MSVC Ninja Debug. |

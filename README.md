@@ -343,8 +343,8 @@ and registers the CUDA CTest suite.
 The suite contains:
 
 - `cuda.cpp.runtime`: builds and runs `tests/cpp/check_cuda.cu`.
-- `cuda.python.pycuda`: runs pytest through the CMake-configured Python
-  interpreter.
+- `cuda.python.pycuda`: runs pytest through the project Python environment
+  (`/venv` in the Linux container, `.venv` for Windows native).
 
 Linux CUDA Debug:
 

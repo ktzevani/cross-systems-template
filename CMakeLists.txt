@@ -32,14 +32,25 @@ if(CST_ENABLE_CUDA)
     target_link_libraries(check_cuda PRIVATE CUDA::cudart)
 
     if(BUILD_TESTING)
-        find_package(Python3 REQUIRED COMPONENTS Interpreter)
+        if(WIN32)
+            set(CST_PYTHON_EXECUTABLE "${CMAKE_SOURCE_DIR}/.venv/Scripts/python.exe")
+        elseif(EXISTS "/venv/bin/python")
+            set(CST_PYTHON_EXECUTABLE "/venv/bin/python")
+        else()
+            find_package(Python3 REQUIRED COMPONENTS Interpreter)
+            set(CST_PYTHON_EXECUTABLE "${Python3_EXECUTABLE}")
+        endif()
+
+        if(NOT EXISTS "${CST_PYTHON_EXECUTABLE}")
+            message(FATAL_ERROR "Python interpreter not found: ${CST_PYTHON_EXECUTABLE}")
+        endif()
 
         add_test(NAME cuda.cpp.runtime COMMAND check_cuda)
         set_tests_properties(cuda.cpp.runtime PROPERTIES LABELS "cuda;cpp")
 
         add_test(
             NAME cuda.python.pycuda
-            COMMAND ${Python3_EXECUTABLE} -m pytest -s ${CMAKE_SOURCE_DIR}/tests/python
+            COMMAND "${CST_PYTHON_EXECUTABLE}" -m pytest -s ${CMAKE_SOURCE_DIR}/tests/python
         )
         set_tests_properties(cuda.python.pycuda PROPERTIES
             LABELS "cuda;python"

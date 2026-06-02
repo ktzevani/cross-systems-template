@@ -130,7 +130,7 @@ RUN mkdir -p /opt/uv-cache
 RUN mkdir -p /venv
 
 ENV PATH=/venv/bin:$PATH \
-    UV_CACHE_DIR=/opt/uv-cache \    
+    UV_CACHE_DIR=/opt/uv-cache \
     VIRTUAL_ENV=/venv
 
 RUN uv python install ${PYTHON_VERSION} && uv venv --python ${PYTHON_VERSION} ${VIRTUAL_ENV} && \
@@ -193,7 +193,7 @@ RUN uv pip install \
     pyright \
     s3tokenizer \
     scikit-build-core[pyproject] \
-    ultralytics 
+    ultralytics
 RUN echo "AI/ML Python dependencies installation completed 1/2"
 
 RUN uv pip install --no-build-isolation \
@@ -208,7 +208,7 @@ RUN uv pip install --no-build-isolation \
     pyloudnorm \
     sound device \
     torchcrepe \
-    vector-quantize-pytorch 
+    vector-quantize-pytorch
 RUN echo "AI/ML Python dependencies installation completed 2/2"
 
 # ==========================================

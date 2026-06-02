@@ -1,0 +1,18 @@
+[settings]
+os = Windows
+arch = x86_64
+compiler = msvc
+compiler.version = 194
+compiler.cppstd = 20
+compiler.runtime = dynamic
+compiler.runtime_type = Debug
+build_type = Debug
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja
+tools.cmake.cmaketoolchain:user_presets=
+tools.microsoft.msbuild:vs_version=17
+
+[buildenv]
+CC = cl
+CXX = cl

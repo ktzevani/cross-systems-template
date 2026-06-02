@@ -22,6 +22,28 @@
       }
     },
     {
+      "name": "windows-msvc-ninja-cuda-debug",
+      "displayName": "Windows MSVC + Ninja + Conan + CUDA Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/windows-msvc-ninja-cuda-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-ninja-cuda-debug/build/Debug/generators/conan_toolchain.cmake",
+        "CST_ENABLE_CUDA": "ON"
+      }
+    },
+    {
+      "name": "windows-msvc-ninja-cuda-release",
+      "displayName": "Windows MSVC + Ninja + Conan + CUDA Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/windows-msvc-ninja-cuda-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-ninja-cuda-release/build/Release/generators/conan_toolchain.cmake",
+        "CST_ENABLE_CUDA": "ON"
+      }
+    },
+    {
       "name": "windows-msvc-msbuild",
       "displayName": "Windows MSVC + MSBuild + Conan",
       "generator": "Visual Studio 17 2022",
@@ -33,6 +55,21 @@
       "cacheVariables": {
         "CMAKE_CONFIGURATION_TYPES": "Debug;Release;RelWithDebInfo;MinSizeRel",
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-msbuild/build/generators/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda",
+      "displayName": "Windows MSVC + MSBuild + Conan + CUDA",
+      "generator": "Visual Studio 17 2022",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "binaryDir": "${sourceDir}/out/build/windows-msvc-msbuild-cuda",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release;RelWithDebInfo;MinSizeRel",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/windows-msvc-msbuild-cuda/build/generators/conan_toolchain.cmake",
+        "CST_ENABLE_CUDA": "ON"
       }
     },
     {
@@ -54,6 +91,28 @@
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/linux-gcc-ninja-release/build/Release/generators/conan_toolchain.cmake"
       }
+    },
+    {
+      "name": "linux-gcc-ninja-cuda-debug",
+      "displayName": "Linux GCC + Ninja + Conan + CUDA Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/linux-gcc-ninja-cuda-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/linux-gcc-ninja-cuda-debug/build/Debug/generators/conan_toolchain.cmake",
+        "CST_ENABLE_CUDA": "ON"
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-cuda-release",
+      "displayName": "Linux GCC + Ninja + Conan + CUDA Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/linux-gcc-ninja-cuda-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/out/conan/linux-gcc-ninja-cuda-release/build/Release/generators/conan_toolchain.cmake",
+        "CST_ENABLE_CUDA": "ON"
+      }
     }
   ],
   "buildPresets": [
@@ -64,6 +123,14 @@
     {
       "name": "windows-msvc-ninja-release",
       "configurePreset": "windows-msvc-ninja-release"
+    },
+    {
+      "name": "windows-msvc-ninja-cuda-debug",
+      "configurePreset": "windows-msvc-ninja-cuda-debug"
+    },
+    {
+      "name": "windows-msvc-ninja-cuda-release",
+      "configurePreset": "windows-msvc-ninja-cuda-release"
     },
     {
       "name": "windows-msvc-msbuild-debug",
@@ -86,12 +153,40 @@
       "configuration": "MinSizeRel"
     },
     {
+      "name": "windows-msvc-msbuild-cuda-debug",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "Debug"
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda-release",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "Release"
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda-relwithdebinfo",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda-minsizerel",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "MinSizeRel"
+    },
+    {
       "name": "linux-gcc-ninja-debug",
       "configurePreset": "linux-gcc-ninja-debug"
     },
     {
       "name": "linux-gcc-ninja-release",
       "configurePreset": "linux-gcc-ninja-release"
+    },
+    {
+      "name": "linux-gcc-ninja-cuda-debug",
+      "configurePreset": "linux-gcc-ninja-cuda-debug"
+    },
+    {
+      "name": "linux-gcc-ninja-cuda-release",
+      "configurePreset": "linux-gcc-ninja-cuda-release"
     }
   ],
   "testPresets": [
@@ -105,6 +200,20 @@
     {
       "name": "windows-msvc-ninja-release",
       "configurePreset": "windows-msvc-ninja-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-ninja-cuda-debug",
+      "configurePreset": "windows-msvc-ninja-cuda-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-ninja-cuda-release",
+      "configurePreset": "windows-msvc-ninja-cuda-release",
       "output": {
         "outputOnFailure": true
       }
@@ -142,6 +251,38 @@
       }
     },
     {
+      "name": "windows-msvc-msbuild-cuda-debug",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda-release",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda-relwithdebinfo",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "RelWithDebInfo",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-msbuild-cuda-minsizerel",
+      "configurePreset": "windows-msvc-msbuild-cuda",
+      "configuration": "MinSizeRel",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
       "name": "linux-gcc-ninja-debug",
       "configurePreset": "linux-gcc-ninja-debug",
       "output": {
@@ -151,6 +292,20 @@
     {
       "name": "linux-gcc-ninja-release",
       "configurePreset": "linux-gcc-ninja-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-cuda-debug",
+      "configurePreset": "linux-gcc-ninja-cuda-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "linux-gcc-ninja-cuda-release",
+      "configurePreset": "linux-gcc-ninja-cuda-release",
       "output": {
         "outputOnFailure": true
       }

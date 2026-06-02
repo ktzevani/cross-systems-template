@@ -10,9 +10,14 @@ Current profile/preset lanes:
 
 - `linux-gcc-ninja-debug`
 - `linux-gcc-ninja-release`
+- `linux-gcc-ninja-cuda-debug`
+- `linux-gcc-ninja-cuda-release`
 - `windows-msvc-ninja-debug`
 - `windows-msvc-ninja-release`
+- `windows-msvc-ninja-cuda-debug`
+- `windows-msvc-ninja-cuda-release`
 - `windows-msvc-msbuild` multi-config Visual Studio lane
+- `windows-msvc-msbuild-cuda` multi-config Visual Studio CUDA lane
 
 Current debug lanes:
 
@@ -27,9 +32,11 @@ Important design decisions:
   `tools.cmake.cmaketoolchain:user_presets=` in profiles.
 - `out/` is generated state.
 - ABI families must remain explicit and isolated.
+- CUDA is an explicit capability lane. CMake owns CUDA language/toolkit
+  discovery, while Conan continues to own the C++ dependency ABI graph.
 - README documents the Linux CUDA dev image, WSL/remote/container development
-  intent, VS Code tasks, debug adapters, current ABI lanes, and future CUDA
-  extension plan.
+  intent, VS Code tasks, debug adapters, current ABI lanes, and CUDA
+  verification workflows.
 - User said the current files under `docs/` are not intended to be committed.
 
 Recent helper scripts:
@@ -39,10 +46,20 @@ Recent helper scripts:
 - `scripts/install-conan-windows-msvc-msbuild.ps1` installs Conan dependency
   metadata for `Debug`, `Release`, `RelWithDebInfo`, and `MinSizeRel` into
   `out/conan/windows-msvc-msbuild`.
+- `scripts/install-conan-windows-msvc-msbuild-cuda.ps1` installs Conan
+  dependency metadata for `Debug`, `Release`, `RelWithDebInfo`, and
+  `MinSizeRel` into `out/conan/windows-msvc-msbuild-cuda`.
+
+Current CUDA verification suite:
+
+- Native CUDA executable source: `tests/cpp/check_cuda.cu`.
+- PyCUDA pytest source: `tests/python/test_pycuda.py`.
+- CTest names: `cuda.cpp.runtime` and `cuda.python.pycuda`.
+- Docker Compose startup runs `/venv/bin/python -m pytest -s
+  tests/python/test_pycuda.py`.
 
 Planned future work:
 
-- Add CUDA build support across all active profiles.
 - Add CUDA debugging support.
 - Add Linux Clang.
 - Add Windows clang-cl.

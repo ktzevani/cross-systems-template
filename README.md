@@ -68,9 +68,14 @@ Current ABI categories supported by this template:
 |---|---|---|---|---|
 | `linux-gcc-ninja-debug` | Linux | GCC 13.3 | ELF, libstdc++ `libstdc++11` ABI | Ninja |
 | `linux-gcc-ninja-release` | Linux | GCC 13.3 | ELF, libstdc++ `libstdc++11` ABI | Ninja |
+| `linux-gcc-ninja-cuda-debug` | Linux | GCC 13.3 + CUDA Toolkit | ELF, libstdc++ `libstdc++11` ABI | Ninja |
+| `linux-gcc-ninja-cuda-release` | Linux | GCC 13.3 + CUDA Toolkit | ELF, libstdc++ `libstdc++11` ABI | Ninja |
 | `windows-msvc-ninja-debug` | Windows | MSVC `cl` | MSVC ABI, MSVC STL, UCRT, dynamic runtime debug | Ninja |
 | `windows-msvc-ninja-release` | Windows | MSVC `cl` | MSVC ABI, MSVC STL, UCRT, dynamic runtime release | Ninja |
+| `windows-msvc-ninja-cuda-debug` | Windows | MSVC `cl` + CUDA Toolkit | MSVC ABI, MSVC STL, UCRT, dynamic runtime debug | Ninja |
+| `windows-msvc-ninja-cuda-release` | Windows | MSVC `cl` + CUDA Toolkit | MSVC ABI, MSVC STL, UCRT, dynamic runtime release | Ninja |
 | `windows-msvc-msbuild` | Windows | MSVC `cl` | MSVC ABI, MSVC STL, UCRT, dynamic runtime per config | MSBuild / Visual Studio |
+| `windows-msvc-msbuild-cuda` | Windows | MSVC `cl` + CUDA Toolkit | MSVC ABI, MSVC STL, UCRT, dynamic runtime per config | MSBuild / Visual Studio |
 
 Planned future ABI families may include Linux Clang, Windows `clang-cl`, and
 Windows MinGW/MSYS2 GCC or Clang. These are not interchangeable just because
@@ -84,8 +89,11 @@ Current supported workflows:
 | Workflow | Preset/profile family | Configurations |
 |---|---|---|
 | VS Code + Linux + GCC + Ninja | `linux-gcc-ninja-*` | `Debug`, `Release` |
+| VS Code + Linux + GCC + Ninja + CUDA | `linux-gcc-ninja-cuda-*` | `Debug`, `Release` |
 | VS Code + Windows + MSVC + Ninja | `windows-msvc-ninja-*` | `Debug`, `Release` |
+| VS Code + Windows + MSVC + Ninja + CUDA | `windows-msvc-ninja-cuda-*` | `Debug`, `Release` |
 | Visual Studio + Windows + MSVC + MSBuild | `windows-msvc-msbuild` | `Debug`, `Release`, `RelWithDebInfo`, `MinSizeRel` |
+| Visual Studio + Windows + MSVC + MSBuild + CUDA | `windows-msvc-msbuild-cuda` | `Debug`, `Release`, `RelWithDebInfo`, `MinSizeRel` |
 
 Single-config generators such as Ninja use one build directory per build type.
 Multi-config generators such as Visual Studio generate one solution that can
@@ -103,7 +111,8 @@ scripts/                            Cross-platform and Windows helper scripts
 .devcontainer/                      Linux dev container entrypoint for VS Code
 image/                              Dev container Docker image
 src/cpp/main.cpp                    Example native executable
-tests/check_pycuda.py               Container CUDA/PyCUDA smoke test
+tests/cpp/check_cuda.cu             Native CUDA verification executable
+tests/python/test_pycuda.py         Pytest CUDA/PyCUDA verification test
 out/                                Generated Conan/CMake/build output
 ```
 
@@ -135,7 +144,8 @@ The Docker Compose service:
 - Mounts the repository at `/opt/project`.
 - Exposes ports `9080` and `9001`.
 - Requests NVIDIA GPU capabilities.
-- Runs `tests/check_pycuda.py` at startup as a CUDA/PyCUDA smoke test.
+- Runs `/venv/bin/python -m pytest -s tests/python/test_pycuda.py` at startup
+  as a CUDA/PyCUDA smoke test.
 - Keeps the container alive for interactive development.
 
 VS Code Dev Containers use the `dev` service and install editor support for
@@ -176,8 +186,16 @@ Current tasks:
 | `03. Conan: Install windows-msvc-ninja-debug` | Generates Conan dependency/toolchain files for Windows MSVC Ninja Debug. |
 | `04. Conan: Install windows-msvc-ninja-release` | Generates Conan dependency/toolchain files for Windows MSVC Ninja Release. |
 | `05. Conan: Install windows-msvc-msbuild all configs` | On Windows, runs the multi-config Conan install script for Visual Studio/MSBuild. |
+| `06 Conan: Install linux-gcc-ninja-cuda-debug` | Generates Conan dependency/toolchain files for Linux GCC CUDA Debug. |
+| `07 Conan: Install linux-gcc-ninja-cuda-release` | Generates Conan dependency/toolchain files for Linux GCC CUDA Release. |
+| `08 Conan: Install windows-msvc-ninja-cuda-debug` | Generates Conan dependency/toolchain files for Windows MSVC Ninja CUDA Debug. |
+| `09 Conan: Install windows-msvc-ninja-cuda-release` | Generates Conan dependency/toolchain files for Windows MSVC Ninja CUDA Release. |
+| `10. Conan: Install windows-msvc-msbuild-cuda all configs` | On Windows, runs the multi-config Conan install script for Visual Studio/MSBuild CUDA. |
 | `11 Debug: Prepare linux-gcc-ninja-debug` | Runs Conan install, CMake configure, and CMake build before Linux debugging. |
 | `12 Debug: Prepare windows-msvc-ninja-debug` | Runs Conan install, CMake configure, and CMake build before Windows debugging. |
+| `21 Verify CUDA: linux-gcc-ninja-cuda-debug` | Runs Conan install, CMake configure/build, and CTest for Linux CUDA Debug. |
+| `22 Verify CUDA: windows-msvc-ninja-cuda-debug` | Runs Conan install, CMake configure/build, and CTest for Windows Ninja CUDA Debug. |
+| `23 Verify CUDA: windows-msvc-msbuild-cuda-debug` | Runs Conan install, CMake configure/build, and CTest for Windows MSBuild CUDA Debug. |
 
 The startup task calls:
 
@@ -189,6 +207,12 @@ The Visual Studio/MSBuild Conan task calls:
 
 ```text
 scripts/install-conan-windows-msvc-msbuild.ps1
+```
+
+The Visual Studio/MSBuild CUDA Conan task calls:
+
+```text
+scripts/install-conan-windows-msvc-msbuild-cuda.ps1
 ```
 
 ## 🐧 VS Code + Linux + Ninja
@@ -310,6 +334,58 @@ cmake --build --preset windows-msvc-msbuild-relwithdebinfo
 cmake --build --preset windows-msvc-msbuild-minsizerel
 ```
 
+## 🧪 CUDA Verification
+
+CUDA verification is opt-in through CUDA-specific profiles and CMake presets.
+Those presets set `CST_ENABLE_CUDA=ON`, which builds the native CUDA smoke test
+and registers the CUDA CTest suite.
+
+The suite contains:
+
+- `cuda.cpp.runtime`: builds and runs `tests/cpp/check_cuda.cu`.
+- `cuda.python.pycuda`: runs pytest through the CMake-configured Python
+  interpreter.
+
+Linux CUDA Debug:
+
+```sh
+uv run --active conan install . \
+  --profile:host=profiles/linux-gcc-ninja-cuda-debug \
+  --profile:build=profiles/linux-gcc-ninja-cuda-debug \
+  --build=missing \
+  -of out/conan/linux-gcc-ninja-cuda-debug
+
+cmake --preset linux-gcc-ninja-cuda-debug
+cmake --build --preset linux-gcc-ninja-cuda-debug
+ctest --preset linux-gcc-ninja-cuda-debug
+```
+
+Windows MSVC/Ninja CUDA Debug:
+
+```powershell
+uv run --active conan install . `
+  --profile:host=profiles/windows-msvc-ninja-cuda-debug `
+  --profile:build=profiles/windows-msvc-ninja-cuda-debug `
+  --build=missing `
+  -of out/conan/windows-msvc-ninja-cuda-debug
+
+cmake --preset windows-msvc-ninja-cuda-debug
+cmake --build --preset windows-msvc-ninja-cuda-debug
+ctest --preset windows-msvc-ninja-cuda-debug
+```
+
+Windows MSVC/MSBuild CUDA keeps the existing multi-config model:
+
+```powershell
+.\scripts\install-conan-windows-msvc-msbuild-cuda.ps1
+cmake --preset windows-msvc-msbuild-cuda
+cmake --build --preset windows-msvc-msbuild-cuda-debug
+ctest --preset windows-msvc-msbuild-cuda-debug
+```
+
+CUDA lanes require a CUDA Toolkit at build time, an NVIDIA driver/GPU at runtime,
+and a host compiler supported by the installed CUDA Toolkit.
+
 ## 🐞 Debugging
 
 VS Code debug configurations live in `.vscode/launch.json`.
@@ -333,9 +409,8 @@ only available on Windows with the Microsoft C/C++ extension.
 Visual Studio users can debug from the generated solution using the normal
 Visual Studio debugger.
 
-CUDA debugging is planned. The current image is CUDA-ready, but CUDA build
-targets, CUDA debug launch profiles, and host/compiler compatibility rules will
-be added as a separate step.
+CUDA debugging is planned. The current CUDA lanes provide build and CTest
+verification, but CUDA debug launch profiles will be added as a separate step.
 
 ## 🐍 Python And Native Code
 
@@ -348,8 +423,8 @@ minimal on purpose, but the template is prepared for several directions:
 - A mixed CUDA/C++/Python project where Python drives high-level workflows and
   native code handles performance-sensitive kernels or system integration.
 
-The dev container currently includes a CUDA/PyCUDA smoke test. Full CUDA build
-profiles and CUDA debugging support are planned future work.
+The dev container currently includes Python CUDA/PyCUDA verification. CUDA C++
+verification is available through the CUDA CMake presets and CTest suite.
 
 ## 🚧 Future Extension Points
 
@@ -358,7 +433,6 @@ Expected additions:
 - Linux Clang profiles.
 - Windows `clang-cl` profiles targeting the MSVC ABI.
 - Windows MSYS2 GCC/Clang profiles targeting MinGW-w64 ABI families.
-- CUDA-enabled profiles across supported host compiler lanes.
 - CUDA debugging workflows.
 - Static/shared library options.
 - Sanitizer profiles for supported compiler families.

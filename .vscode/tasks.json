@@ -126,6 +126,97 @@
       }
     },
     {
+      "label": "06 Conan: Install linux-gcc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/linux-gcc-ninja-cuda-debug --profile:build=profiles/linux-gcc-ninja-cuda-debug --build=missing -of out/conan/linux-gcc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "07 Conan: Install linux-gcc-ninja-cuda-release",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/linux-gcc-ninja-cuda-release --profile:build=profiles/linux-gcc-ninja-cuda-release --build=missing -of out/conan/linux-gcc-ninja-cuda-release",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "08 Conan: Install windows-msvc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/windows-msvc-ninja-cuda-debug --profile:build=profiles/windows-msvc-ninja-cuda-debug --build=missing -of out/conan/windows-msvc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "09 Conan: Install windows-msvc-ninja-cuda-release",
+      "type": "shell",
+      "command": "uv run --active conan install . --profile:host=profiles/windows-msvc-ninja-cuda-release --profile:build=profiles/windows-msvc-ninja-cuda-release --build=missing -of out/conan/windows-msvc-ninja-cuda-release",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "10. Conan: Install windows-msvc-msbuild-cuda all configs",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "Skipping Windows MSBuild CUDA Conan install on this platform."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": [],
+      "windows": {
+        "type": "process",
+        "command": "powershell.exe",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "${workspaceFolder}\\scripts\\install-conan-windows-msvc-msbuild-cuda.ps1"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        }
+      }
+    },
+    {
       "label": "11 Debug: Prepare linux-gcc-ninja-debug",
       "dependsOrder": "sequence",
       "dependsOn": [
@@ -191,6 +282,165 @@
       "label": "12.2 CMake: Build windows-msvc-ninja-debug",
       "type": "shell",
       "command": "cmake --build --preset windows-msvc-ninja-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "21 Verify CUDA: linux-gcc-ninja-cuda-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "06 Conan: Install linux-gcc-ninja-cuda-debug",
+        "21.1 CMake: Configure linux-gcc-ninja-cuda-debug",
+        "21.2 CMake: Build linux-gcc-ninja-cuda-debug",
+        "21.3 CTest: Run linux-gcc-ninja-cuda-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "21.1 CMake: Configure linux-gcc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "cmake --preset linux-gcc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "21.2 CMake: Build linux-gcc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "cmake --build --preset linux-gcc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "21.3 CTest: Run linux-gcc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "ctest --preset linux-gcc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "22 Verify CUDA: windows-msvc-ninja-cuda-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "08 Conan: Install windows-msvc-ninja-cuda-debug",
+        "22.1 CMake: Configure windows-msvc-ninja-cuda-debug",
+        "22.2 CMake: Build windows-msvc-ninja-cuda-debug",
+        "22.3 CTest: Run windows-msvc-ninja-cuda-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "22.1 CMake: Configure windows-msvc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "cmake --preset windows-msvc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "22.2 CMake: Build windows-msvc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "cmake --build --preset windows-msvc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "22.3 CTest: Run windows-msvc-ninja-cuda-debug",
+      "type": "shell",
+      "command": "ctest --preset windows-msvc-ninja-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "23 Verify CUDA: windows-msvc-msbuild-cuda-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "10. Conan: Install windows-msvc-msbuild-cuda all configs",
+        "23.1 CMake: Configure windows-msvc-msbuild-cuda",
+        "23.2 CMake: Build windows-msvc-msbuild-cuda-debug",
+        "23.3 CTest: Run windows-msvc-msbuild-cuda-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "23.1 CMake: Configure windows-msvc-msbuild-cuda",
+      "type": "shell",
+      "command": "cmake --preset windows-msvc-msbuild-cuda",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "23.2 CMake: Build windows-msvc-msbuild-cuda-debug",
+      "type": "shell",
+      "command": "cmake --build --preset windows-msvc-msbuild-cuda-debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "23.3 CTest: Run windows-msvc-msbuild-cuda-debug",
+      "type": "shell",
+      "command": "ctest --preset windows-msvc-msbuild-cuda-debug",
       "options": {
         "cwd": "${workspaceFolder}"
       },

@@ -2,11 +2,15 @@
 
 ![C++](https://img.shields.io/badge/C%2B%2B-20-00599C?logo=cplusplus)
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
-![CUDA](https://img.shields.io/badge/CUDA-ready-76B900?logo=nvidia&logoColor=white)
+![Platforms](https://img.shields.io/badge/Platforms-Windows%20%7C%20Linux-4E8CCF)
+![CUDA](https://img.shields.io/badge/CUDA-enabled-76B900?logo=nvidia&logoColor=white)
 ![CMake](https://img.shields.io/badge/CMake-presets-064F8C?logo=cmake)
 ![Conan](https://img.shields.io/badge/Conan-2.x-6699CB)
-![Ninja](https://img.shields.io/badge/Ninja-build-222222)
-![MSBuild](https://img.shields.io/badge/MSBuild-Visual%20Studio-5C2D91?logo=visualstudio)
+![Ninja](https://img.shields.io/badge/Ninja-supported-222222)
+![MSBuild](https://img.shields.io/badge/MSBuild-supported-5C2D91?logo=visualstudio)
+![VS Code](https://img.shields.io/badge/VS%20Code-Dev%20Ready-007ACC?logo=visualstudiocode&logoColor=white)
+![Visual Studio](https://img.shields.io/badge/Visual%20Studio-Dev%20Ready-5C2D91?logo=visualstudio&logoColor=white)
+![NVIDIA Nsight](https://img.shields.io/badge/NVIDIA%20Nsight-supported-76B900?logo=nvidia&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 This repository is a template for developing cross-platform systems software on
@@ -393,7 +397,7 @@ ctest --preset windows-msvc-msbuild-cuda-debug
 CUDA lanes require a CUDA Toolkit at build time, an NVIDIA driver/GPU at runtime,
 and a host compiler supported by the installed CUDA Toolkit.
 
-## 🐞 Debugging
+## 🐞 CPU Debugging
 
 VS Code debug configurations live in `.vscode/launch.json`.
 
@@ -413,9 +417,15 @@ Windows uses the Visual Studio Windows debugger:
 `cppvsdbg` is the VS Code debug adapter for the Visual Studio debugger. It is
 only available on Windows with the Microsoft C/C++ extension.
 
+## 🧵 CUDA Debugging
+
 CUDA Debug builds compile CUDA sources with device debug information. CUDA
 `Debug` builds use NVCC device-debug flags, while CUDA `RelWithDebInfo` builds
 use line information for source correlation.
+
+CUDA breakpoints should be placed on executable device statements inside a
+kernel. Breakpoints on a `__global__` function declaration may bind to generated
+host launch/stub code instead of device code.
 
 Linux CUDA kernel debugging is supported through NVIDIA Nsight Visual Studio Code
 Edition in the Linux dev container:
@@ -479,7 +489,6 @@ Expected additions:
 - Linux Clang profiles.
 - Windows `clang-cl` profiles targeting the MSVC ABI.
 - Windows MSYS2 GCC/Clang profiles targeting MinGW-w64 ABI families.
-- CUDA debugging workflows.
 - Static/shared library options.
 - Sanitizer profiles for supported compiler families.
 - Profiling workflows and metrics collection guidance.

@@ -35,6 +35,30 @@
       "preLaunchTask": "12 Debug: Prepare windows-msvc-ninja-debug"
     },
     {
+      "name": "Debug CUDA check: Linux Nsight VS Code",
+      "type": "cuda-gdb",
+      "request": "launch",
+      "program": "${workspaceFolder}/out/build/linux-gcc-ninja-cuda-debug/check_cuda",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "debuggerPath": "/usr/local/cuda/bin/cuda-gdb",
+      "breakOnLaunch": true,
+      "onAPIError": "stop",
+      "preLaunchTask": "13 Debug CUDA: Prepare linux-gcc-ninja-cuda-debug"
+    },
+    {
+      "name": "Debug CUDA check host: Windows MSVC + Visual Studio Debugger",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\out\\build\\windows-msvc-ninja-cuda-debug\\check_cuda.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "14 Debug CUDA: Prepare windows-msvc-ninja-cuda-debug"
+    },
+    {
       "name": "Attach app: Linux GCC + GDB",
       "type": "cppdbg",
       "request": "attach",
@@ -55,6 +79,13 @@
       "type": "cppvsdbg",
       "request": "attach",
       "processId": "${command:pickProcess}"
+    },
+    {
+      "name": "Attach CUDA: Linux Nsight VS Code",
+      "type": "cuda-gdb",
+      "request": "attach",
+      "processId": "${command:cuda.pickProcess}",
+      "debuggerPath": "/usr/local/cuda/bin/cuda-gdb"
     }
   ]
 }

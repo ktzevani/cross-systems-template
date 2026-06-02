@@ -149,7 +149,8 @@ The Docker Compose service:
 - Keeps the container alive for interactive development.
 
 VS Code Dev Containers use the `dev` service and install editor support for
-Python, CMake, C/C++ debugging, Jupyter, Ruff, TOML, and Markdown tooling.
+Python, CMake, C/C++ debugging, NVIDIA Nsight VS Code CUDA debugging, Jupyter,
+Ruff, TOML, and Markdown tooling.
 
 This image is the recommended Linux development path when the host is Windows
 and Linux builds should happen in WSL or a remote/container environment.
@@ -160,11 +161,15 @@ Linux dev container:
 
 - Docker with NVIDIA container support if GPU/CUDA smoke tests are required.
 - VS Code Dev Containers extension.
+- NVIDIA Nsight Visual Studio Code Edition, installed automatically in the dev
+  container.
 - WSL 2 is recommended when running Docker Desktop on Windows.
 
 Windows native development:
 
 - Visual Studio 2022 with the C++ desktop workload.
+- NVIDIA Nsight Visual Studio Edition for native Windows CUDA kernel debugging
+  in Visual Studio.
 - CMake.
 - Ninja, for the Windows Ninja workflow.
 - uv.
@@ -193,6 +198,8 @@ Current tasks:
 | `10. Conan: Install windows-msvc-msbuild-cuda all configs` | On Windows, runs the multi-config Conan install script for Visual Studio/MSBuild CUDA. |
 | `11 Debug: Prepare linux-gcc-ninja-debug` | Runs Conan install, CMake configure, and CMake build before Linux debugging. |
 | `12 Debug: Prepare windows-msvc-ninja-debug` | Runs Conan install, CMake configure, and CMake build before Windows debugging. |
+| `13 Debug CUDA: Prepare linux-gcc-ninja-cuda-debug` | Runs Conan install, CMake configure, and CMake build before Linux CUDA debugging. |
+| `14 Debug CUDA: Prepare windows-msvc-ninja-cuda-debug` | Runs Conan install, CMake configure, and CMake build before Windows CUDA host debugging in VS Code. |
 | `21 Verify CUDA: linux-gcc-ninja-cuda-debug` | Runs Conan install, CMake configure/build, and CTest for Linux CUDA Debug. |
 | `22 Verify CUDA: windows-msvc-ninja-cuda-debug` | Runs Conan install, CMake configure/build, and CTest for Windows Ninja CUDA Debug. |
 | `23 Verify CUDA: windows-msvc-msbuild-cuda-debug` | Runs Conan install, CMake configure/build, and CTest for Windows MSBuild CUDA Debug. |
@@ -406,11 +413,50 @@ Windows uses the Visual Studio Windows debugger:
 `cppvsdbg` is the VS Code debug adapter for the Visual Studio debugger. It is
 only available on Windows with the Microsoft C/C++ extension.
 
-Visual Studio users can debug from the generated solution using the normal
-Visual Studio debugger.
+CUDA Debug builds compile CUDA sources with device debug information. CUDA
+`Debug` builds use NVCC device-debug flags, while CUDA `RelWithDebInfo` builds
+use line information for source correlation.
 
-CUDA debugging is planned. The current CUDA lanes provide build and CTest
-verification, but CUDA debug launch profiles will be added as a separate step.
+Linux CUDA kernel debugging is supported through NVIDIA Nsight Visual Studio Code
+Edition in the Linux dev container:
+
+- Launch: `Debug CUDA check: Linux Nsight VS Code`
+- Attach: `Attach CUDA: Linux Nsight VS Code`
+- Adapter type: `cuda-gdb`
+- Debugger: `/usr/local/cuda/bin/cuda-gdb`
+- Target: `out/build/linux-gcc-ninja-cuda-debug/check_cuda`
+
+The launch configuration builds the CUDA Debug lane first. Set breakpoints in
+`tests/cpp/check_cuda.cu`, then start the Nsight VS Code launch configuration.
+
+Windows VS Code supports configuring, building, testing, and host-side debugging
+of the CUDA executable:
+
+- Launch: `Debug CUDA check host: Windows MSVC + Visual Studio Debugger`
+- Adapter type: `cppvsdbg`
+- Target: `out\build\windows-msvc-ninja-cuda-debug\check_cuda.exe`
+
+Native Windows CUDA kernel debugging is supported through Visual Studio with
+NVIDIA Nsight Visual Studio Edition. Generate the CUDA MSBuild solution, open it
+in Visual Studio, build the `Debug` configuration, set breakpoints in
+`tests/cpp/check_cuda.cu`, and start CUDA debugging from the Visual Studio
+Nsight menu:
+
+```powershell
+.\scripts\install-conan-windows-msvc-msbuild-cuda.ps1
+cmake --preset windows-msvc-msbuild-cuda
+cmake --build --preset windows-msvc-msbuild-cuda-debug
+```
+
+Open:
+
+```text
+out\build\windows-msvc-msbuild-cuda\cross-systems-template.sln
+```
+
+Windows VS Code is not the native CUDA kernel debugger lane. NVIDIA Nsight VS
+Code Edition uses `cuda-gdb`, whose CUDA debugging target is Linux; use Visual
+Studio + Nsight Visual Studio Edition for Windows-native CUDA kernel debugging.
 
 ## 🐍 Python And Native Code
 

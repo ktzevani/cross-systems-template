@@ -293,6 +293,26 @@
       "problemMatcher": []
     },
     {
+      "label": "13 Debug CUDA: Prepare linux-gcc-ninja-cuda-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "06 Conan: Install linux-gcc-ninja-cuda-debug",
+        "21.1 CMake: Configure linux-gcc-ninja-cuda-debug",
+        "21.2 CMake: Build linux-gcc-ninja-cuda-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "14 Debug CUDA: Prepare windows-msvc-ninja-cuda-debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "08 Conan: Install windows-msvc-ninja-cuda-debug",
+        "22.1 CMake: Configure windows-msvc-ninja-cuda-debug",
+        "22.2 CMake: Build windows-msvc-ninja-cuda-debug"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "21 Verify CUDA: linux-gcc-ninja-cuda-debug",
       "dependsOrder": "sequence",
       "dependsOn": [

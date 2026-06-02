@@ -24,6 +24,12 @@ Current debug lanes:
 - Linux: VS Code `cppdbg` with `/usr/bin/gdb`.
 - Windows: VS Code `cppvsdbg`, the Visual Studio Windows debugger adapter.
 - Visual Studio: generated `.sln` from `windows-msvc-msbuild`.
+- Linux CUDA: VS Code NVIDIA Nsight Visual Studio Code Edition with `cuda-gdb`
+  in the Linux dev container.
+- Windows CUDA: Visual Studio with NVIDIA Nsight Visual Studio Edition from the
+  `windows-msvc-msbuild-cuda` solution. Windows VS Code remains useful for
+  build/test and host-side `cppvsdbg` debugging, not native CUDA kernel
+  debugging.
 
 Important design decisions:
 
@@ -34,6 +40,8 @@ Important design decisions:
 - ABI families must remain explicit and isolated.
 - CUDA is an explicit capability lane. CMake owns CUDA language/toolkit
   discovery, while Conan continues to own the C++ dependency ABI graph.
+- CUDA Debug builds add NVCC device debug information for `check_cuda`;
+  RelWithDebInfo CUDA builds add line information for source correlation.
 - README documents the Linux CUDA dev image, WSL/remote/container development
   intent, VS Code tasks, debug adapters, current ABI lanes, and CUDA
   verification workflows.

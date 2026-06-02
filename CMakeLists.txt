@@ -29,6 +29,10 @@ if(CST_ENABLE_CUDA)
     )
 
     target_compile_features(check_cuda PRIVATE cuda_std_17)
+    target_compile_options(check_cuda PRIVATE
+        "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CUDA>>:-G;-g>"
+        "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANGUAGE:CUDA>>:-lineinfo>"
+    )
     target_link_libraries(check_cuda PRIVATE CUDA::cudart)
 
     if(BUILD_TESTING)

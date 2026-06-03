@@ -8,9 +8,9 @@ services:
       args:
         PYTHON_VERSION: 3.13.12
       tags:
-        - cross-systems-template-image:latest
-        - cross-systems-template-image:${APP_VERSION:-v1.1}
-    image: cross-systems-template-image:latest
+        - cross-systems-template:latest
+        - cross-systems-template:${APP_VERSION:-v1.1}
+    image: cross-systems-template:latest
     container_name: dev
     security_opt:
       - "seccomp=unconfined"
